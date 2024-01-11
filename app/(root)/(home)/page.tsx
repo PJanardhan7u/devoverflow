@@ -1,6 +1,47 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import  LocalSearchbar  from "@/components/shared/search/LocalSearchbar";
+import Filter  from "@/components/shared/Filter";
+import {HomePageFilters}  from "@/constants/filters";
+import HomeFilters from "@/components/home/HomeFilters"
+import NoResult from "@/components/shared/NoResult";
+import QuestionCard from "@/components/cards/QuestionCard";
+
+
 export default function Home() {
+
+  const questions: Props[] = [
+    {
+      _id: "1",
+      title: "How to use React Query?",
+      tags: [{ _id: "1", name: "React" }, { _id: "2", name: "React Query" }],
+      author: {
+        _id: "1",
+        name: "jana",
+        picture: "jana_profile_picture.jpg", // Replace with the actual picture URL
+      },
+      upvotes: 10,
+      views: 20,
+      answers: [],
+      createdAt: "2021-09-01T10:00:00.000Z",
+    },
+    {
+      _id: "2",
+      title: "How to use React Query?",
+      tags: [{ _id: "1", name: "React" }, { _id: "2", name: "React Query" }],
+      author: {
+        _id: "1",
+        name: "jana",
+        picture: "jana_profile_picture.jpg", // Replace with the actual picture URL
+      },
+      upvotes: 500023,
+      views: 210,
+      answers: [],
+      createdAt: "2021-09-01T10:00:00.000Z",
+    },
+  ];
+  
+
   return (
     <>
       <div className="flex w-full flex-col-reverse justify-between gap-4 sm:flex-row sm:items-center">
@@ -14,8 +55,47 @@ export default function Home() {
       </div>
 
       <div className="mt-11 flex justify-between gap-5 max-sm:flex-col sm:items-center">
-
+      <LocalSearchbar
+          route="/"
+          iconPosition="left"
+          imgSrc="/assets/icons/search.svg"
+          placeholder="Search for a questions"
+          otherClasses="flex-1"
+        />
+        
+        <Filter
+          filters={HomePageFilters}
+          otherClasses="min-h-[46px] sm:min-w-[170px]"
+          containerClasses="hidden max-md:flex"
+        />
+        
       </div>
+      <HomeFilters/>
+
+      <div className="mt-10 flex w-full flex-col gap-6">
+        {questions.length>0 ?
+        questions.map((question)=>
+        <QuestionCard
+        key={question._id}
+        _id={question._id}
+        title={question.title}
+        tags={question.tags}
+        author={question.author}
+        upvotes={question.upvotes}
+        views={question.views}
+        answers={question.answers}
+        createdAt={question.createdAt}
+        />
+        ):<NoResult
+        title="Theres no question to show"
+        description="Be the first to break the silence! 🚀 Ask a Question and kickstart the discussion. our query could be the next big thing others learn from. Get involved! 💡"
+        link="/ask-question"
+        linkTitle="Add a Question"
+
+        />}
+      </div>
+
     </>
   )
 }
+

@@ -10,50 +10,50 @@ const RightSidebar = () => {
 
     const hotQuestions=[
       {
-        _id:1,
+        _id:"1",
         title:'How do I use express as a custum servr in Nextjs'
       },
       {
-        _id:2,
+        _id:"2",
         title:'How do I use express as a custum servr in Nextjs'
       },
       {
-        _id:3,
+        _id:"3",
         title:'How do I use express as a custum servr in Nextjs'
       },
       {
-        _id:4,
+        _id:"4",
         title:'How do I use express as a custum servr in Nextjs'
       },
       {
-        _id:5,
+        _id:"5",
         title:'How do I use express as a custum servr in Nextjs'
       }
     ]
 
     const popularTags=[
       {
-        _id:1,
+        _id:"1",
         name:'Nextjs',
         totalQuestions: 100
       },
       {
-        _id:2,
+        _id:"2",
         name:'react',
         totalQuestions: 100
       },
       {
-        _id:3,
+        _id:"3",
         name:'javascript',
         totalQuestions: 100
       },
       {
-        _id:4,
+        _id:"4",
         name:'Vuejs',
         totalQuestions: 100
       },
       {
-        _id:5,
+        _id:"5",
         name:'Redux',
         totalQuestions: 100
 
