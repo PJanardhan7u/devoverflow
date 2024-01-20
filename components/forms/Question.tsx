@@ -15,8 +15,18 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "../ui/button";
+import React, { useRef } from "react";
+import { Editor } from "@tinymce/tinymce-react";
 
 const Question = () => {
+  const editorRef = useRef(null);
+
+  const log = () => {
+    if (editorRef.current) {
+      console.log(editorRef.current.getContent());
+    }
+  };
+
   const form = useForm<z.infer<typeof QuestionsSchema>>({
     resolver: zodResolver(QuestionsSchema),
     defaultValues: {
@@ -73,9 +83,42 @@ const Question = () => {
               </FormLabel>
               <FormControl className="mt-3.5">
 
-
-                
-                
+                <Editor
+                  apiKey={process.env.NEXT_PUBLIC_TINY_EDITOR_API_KEY}
+                  
+                  onInit={(evt, editor) => 
+                    // @ts-ignore
+                    (editorRef.current = editor)}
+                  initialValue="<p>Explanation</p>"
+                  init={{
+                    height: 350,
+                    menubar: false,
+                    plugins: [
+                      "advlist",
+                      "autolink",
+                      "lists",
+                      "link",
+                      "image",
+                      "charmap",
+                      "preview",
+                      "anchor",
+                      "searchreplace",
+                      "visualblocks",
+                      "codesample",
+                      "fullscreen",
+                      "insertdatetime",
+                      "media",
+                      "table",
+                    ],
+                    toolbar:
+                      "undo redo | " +
+                      "codesample | bold italic forecolor | alignleft aligncenter |" +
+                      "alignright alignjustify | bullist numlist",
+                      content_style: "body { font-family:Inter; font-size:16px }",
+                      
+                  }}
+                />
+       
               </FormControl>
               <FormDescription className="body-regular mt-2.5 text-light-500">
                 Be specific and imagine you&apos;re asking a question to another
