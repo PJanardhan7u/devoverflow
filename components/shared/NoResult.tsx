@@ -29,7 +29,7 @@ const NoResult = ({ title, description, link, linkTitle }: Props) => {
         className="hidden object-contain dark:flex"
       />
 
-      <h2 className="h2-bold text-dark200_light900 mt-8"> There's no question to show</h2>
+      <h2 className="h2-bold text-dark200_light900 mt-8"> Theres no question to show</h2>
       <p className="body-regular text-dark500_light700 my-3.5 max-w-md text-center">Be the first to break the silence! 
         🚀 Ask a Question and kickstart the discussion. our query 
         could be the next big thing others learn from. Get involved! 💡</p>

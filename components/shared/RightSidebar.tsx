@@ -2,8 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import RenderTag from "./RenderTag";
-import { getHotQuestions } from "@/lib/actions/question.action";
-import { getTopPopularTags } from "@/lib/actions/tag.actions";
 
 
 const RightSidebar = () => {
