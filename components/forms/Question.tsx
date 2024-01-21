@@ -20,12 +20,22 @@ import { Editor } from "@tinymce/tinymce-react";
 import { Badge } from "../ui/badge";
 import Image from "next/image";
 import { createQuestion } from "@/lib/actions/question.action";
+import { useRouter, usePathname } from "next/navigation";
+
 
 const type:any= "create"
 
-const Question = () => {
+interface Props {
+  mongoUserId: string;
+}
+
+
+const Question = ({mongoUserId}:Props) => {
   const editorRef = useRef(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const router=useRouter()
+  const pathname=usePathname()
+
 
   const log = () => {
     if (editorRef.current) {
@@ -47,9 +57,16 @@ const Question = () => {
     setIsSubmitting(true);
     try{
       // make an asyn call api create question
-      await createQuestion()
+      await createQuestion({
+        title: values.title,
+        content: values.explanation,
+        tags: values.tags,
+        author:JSON.parse(mongoUserId),
 
 
+      })
+
+      router.push("/")
     }
     catch(err){
       console.log(err)
