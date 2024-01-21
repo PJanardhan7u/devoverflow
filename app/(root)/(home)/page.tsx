@@ -6,42 +6,14 @@ import {HomePageFilters}  from "@/constants/filters";
 import HomeFilters from "@/components/home/HomeFilters"
 import NoResult from "@/components/shared/NoResult";
 import QuestionCard from "@/components/cards/QuestionCard";
+import { getQuestions } from "@/lib/actions/question.action";
+
+export default async function Home() {
 
 
-export default function Home() {
-
-  const questions: Props[] = [
-    {
-      _id: "1",
-      title: "How to use React Query?",
-      tags: [{ _id: "1", name: "React" }, { _id: "2", name: "React Query" }],
-      author: {
-        _id: "1",
-        name: "jana",
-        picture: "jana_profile_picture.jpg", // Replace with the actual picture URL
-      },
-      upvotes: 10,
-      views: 20,
-      answers: [],
-      createdAt: "2021-09-01T10:00:00.000Z",
-    },
-    {
-      _id: "2",
-      title: "How to use React Query?",
-      tags: [{ _id: "1", name: "React" }, { _id: "2", name: "React Query" }],
-      author: {
-        _id: "1",
-        name: "jana",
-        picture: "jana_profile_picture.jpg", // Replace with the actual picture URL
-      },
-      upvotes: 500023,
-      views: 210,
-      answers: [],
-      createdAt: "2021-09-01T10:00:00.000Z",
-    },
-  ];
   
-
+  const result=await getQuestions({})
+  // console.log(result.questions)
   return (
     <>
       <div className="flex w-full flex-col-reverse justify-between gap-4 sm:flex-row sm:items-center">
@@ -73,8 +45,8 @@ export default function Home() {
       <HomeFilters/>
 
       <div className="mt-10 flex w-full flex-col gap-6">
-        {questions.length>0 ?
-        questions.map((question)=>
+        {result.questions.length>0 ?
+        result.questions.map((question)=>
         <QuestionCard
         key={question._id}
         _id={question._id}
