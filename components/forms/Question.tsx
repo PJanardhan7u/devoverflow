@@ -15,19 +15,18 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "../ui/button";
-import React, { useRef } from "react";
+import React, { useRef,useState } from "react";
 import { Editor } from "@tinymce/tinymce-react";
 import { Badge } from "../ui/badge";
 import Image from "next/image";
 
-interface Props {
-  type?: string;
-  mongoUserId: string;
-  questionDetails?: string;
-}
 
-const Question = ({ type, mongoUserId, questionDetails }: Props) => {
+
+const type:any= "create"
+
+const Question = () => {
   const editorRef = useRef(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const log = () => {
     if (editorRef.current) {
@@ -46,8 +45,19 @@ const Question = ({ type, mongoUserId, questionDetails }: Props) => {
 
   // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof QuestionsSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
+    setIsSubmitting(true);
+    try{
+      // make an asyn call api create question
+      
+
+    }
+    catch(err){
+      console.log(err)
+    }
+    finally{
+      setIsSubmitting(false);
+    }
+
     console.log(values);
   }
 
@@ -217,7 +227,7 @@ const Question = ({ type, mongoUserId, questionDetails }: Props) => {
 
               </FormControl>
               <FormDescription className="body-regular mt-2.5 text-light-500">
-                Add up to 3 tags to describe what your question is about. You
+                Aup to 3 tags to describe what your question is about. You
                 need to press enter to add a tag.
               </FormDescription>
               <FormMessage className="text-red-500" />
@@ -228,8 +238,13 @@ const Question = ({ type, mongoUserId, questionDetails }: Props) => {
         <Button
           type="submit"
           className="primary-gradient w-fit !text-light-900"
+          disabled={isSubmitting}
         >
-          Submit
+         {isSubmitting ? (
+            <>{type === "Edit" ? "Editing..." : "Posting..."}</>
+          ) : (
+            <>{type === "Edit" ? "Edit Question" : "Ask a Question"}</>
+          )}
         </Button>
       </form>
     </Form>
