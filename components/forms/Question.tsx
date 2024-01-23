@@ -15,27 +15,24 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "../ui/button";
-import React, { useRef,useState } from "react";
+import React, { useRef, useState } from "react";
 import { Editor } from "@tinymce/tinymce-react";
 import { Badge } from "../ui/badge";
 import Image from "next/image";
 import { createQuestion } from "@/lib/actions/question.action";
 import { useRouter, usePathname } from "next/navigation";
 
-
-const type:any= "create"
+const type: any = "create";
 
 interface Props {
   mongoUserId: string;
 }
 
-
-const Question = ({mongoUserId}:Props) => {
+const Question = ({ mongoUserId }: Props) => {
   const editorRef = useRef(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const router=useRouter()
-  const pathname=usePathname()
-
+  const router = useRouter();
+  const pathname = usePathname();
 
   // const log = () => {
   //   if (editorRef.current) {
@@ -53,32 +50,27 @@ const Question = ({mongoUserId}:Props) => {
   });
 
   // 2. Define a submit handler.
- async function onSubmit(values: z.infer<typeof QuestionsSchema>) {
+  async function onSubmit(values: z.infer<typeof QuestionsSchema>) {
     setIsSubmitting(true);
-    try{
+    try {
       // make an asyn call api create question
       await createQuestion({
         title: values.title,
         content: values.explanation,
         tags: values.tags,
-        author:JSON.parse(mongoUserId),
-        path:pathname
+        author: JSON.parse(mongoUserId),
+        path: pathname,
+      });
 
-
-      })
-
-      router.push("/")
-    }
-    catch(err){
-      console.log(err)
-    }
-    finally{
+      router.push("/");
+    } catch (err) {
+      console.log(err);
+    } finally {
       setIsSubmitting(false);
     }
 
-    console.log(values);
+    // console.log(values);
   }
-
 
   const handleInputKeyDown = (
     e: React.KeyboardEvent<HTMLInputElement>,
@@ -106,9 +98,8 @@ const Question = ({mongoUserId}:Props) => {
       } else {
         form.trigger();
       }
-
-      }
-  }
+    }
+  };
   const handleTagRemove = (tag: string, field: any) => {
     const newTags = field.value.filter((t: string) => t !== tag);
 
@@ -210,45 +201,42 @@ const Question = ({mongoUserId}:Props) => {
               </FormLabel>
               <FormControl className="mt-3.5">
                 <div>
-                  
                   <Input
                     className="no-focus paragraph-regular background-light900_dark300 light-border-2 text-dark300_light700 min-h-[56px] border"
                     placeholder="Add tags..."
                     onKeyDown={(e) => handleInputKeyDown(e, field)}
                   />
-                   {field.value.length > 0 && (
-                      <div className="flex-start mt-2.5 gap-2.5">
-                        {field.value.map((tag: any) => (
-                          <Badge
-                            key={tag}
-                            className="subtle-medium background-light800_dark300 text-light400_light500 flex items-center justify-center gap-2 rounded-md border-none px-4 py-2 capitalize"
-                            onClick={() =>
-                              type !== "Edit"
-                                ? handleTagRemove(tag, field)
-                                : () => {}
-                            }
-                          >
-                            {tag}
-                            {type !== "Edit" && (
-                              <Image
-                                src="/assets/icons/close.svg"
-                                alt="Close icon"
-                                width={12}
-                                height={12}
-                                className="cursor-pointer object-contain invert-0 dark:invert"
-                              />
-                            )}
-                          </Badge>
-                        ))}
-                      </div>
-                    )}
+                  {field.value.length > 0 && (
+                    <div className="flex-start mt-2.5 gap-2.5">
+                      {field.value.map((tag: any) => (
+                        <Badge
+                          key={tag}
+                          className="subtle-medium background-light800_dark300 text-light400_light500 flex items-center justify-center gap-2 rounded-md border-none px-4 py-2 capitalize"
+                          onClick={() =>
+                            type !== "Edit"
+                              ? handleTagRemove(tag, field)
+                              : () => {}
+                          }
+                        >
+                          {tag}
+                          {type !== "Edit" && (
+                            <Image
+                              src="/assets/icons/close.svg"
+                              alt="Close icon"
+                              width={12}
+                              height={12}
+                              className="cursor-pointer object-contain invert-0 dark:invert"
+                            />
+                          )}
+                        </Badge>
+                      ))}
+                    </div>
+                  )}
                 </div>
-
-
               </FormControl>
               <FormDescription className="body-regular mt-2.5 text-light-500">
-                Aup to 3 tags to describe what your question is about. You
-                need to press enter to add a tag.
+                Aup to 3 tags to describe what your question is about. You need
+                to press enter to add a tag.
               </FormDescription>
               <FormMessage className="text-red-500" />
             </FormItem>
@@ -260,7 +248,7 @@ const Question = ({mongoUserId}:Props) => {
           className="primary-gradient w-fit !text-light-900"
           disabled={isSubmitting}
         >
-         {isSubmitting ? (
+          {isSubmitting ? (
             <>{type === "Edit" ? "Editing..." : "Posting..."}</>
           ) : (
             <>{type === "Edit" ? "Edit Question" : "Ask a Question"}</>

@@ -2,9 +2,7 @@ import React from "react";
 import Link from "next/link";
 import RenderTag from "../shared/RenderTag";
 import Metric from "../shared/Metric";
-import { getTimestamp,formatAndDivideNumber } from "@/lib/utils";
-
-
+import { getTimestamp, formatAndDivideNumber } from "@/lib/utils";
 
 interface Props {
   _id: string;
@@ -52,15 +50,13 @@ const QuestionCard = ({
         ))}
       </div>
       <div className="flex-between mt-6 w-full flex-wrap gap-3">
-
-      <Metric
+        <Metric
           imgUrl="/assets/icons/avatar.svg"
           alt="user"
           value={author.name}
           title={`- asked ${getTimestamp(createdAt)}`}
           href={`/profile/${author._id}`}
           isAuthor
-
           textStyles="small-regular text-dark400_light800"
         />
 
@@ -71,8 +67,6 @@ const QuestionCard = ({
           title="votes"
           textStyles="body-medium text-dark400_light700"
         />
-
-        
 
         <Metric
           imgUrl="/assets/icons/message.svg"
